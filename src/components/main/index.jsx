@@ -2,7 +2,7 @@ import styles from './styles.module.css';
 import NoteForm from './../noteForm';
 import NoteList from './../noteList';
 
-export default function Main() {
+function Main() {
   return (
     <main className={styles.main_container}>
       <NoteForm />
@@ -10,3 +10,5 @@ export default function Main() {
     </main>
   );
 }
+
+export default Main;
