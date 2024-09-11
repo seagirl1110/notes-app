@@ -11,6 +11,7 @@
     display: flex;
     gap: 35px;
     padding: 0 30px;
+    margin-top: auto;
 }
 
 .note_btn {

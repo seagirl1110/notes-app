@@ -2,8 +2,8 @@ import styles from './styles.module.css';
 import { connect } from 'react-redux';
 import NoteItem from './../noteItem';
 
-function NoteList({ noteList }) {
-  if (!noteList.length) return <p>You don't have notes!</p>;
+function NoteList({ noteList, notesCount }) {
+  if (!notesCount) return;
   return (
     <div className={styles.note_list_container}>
       {noteList.map((note) => (
@@ -15,6 +15,7 @@ function NoteList({ noteList }) {
 
 const mapStateToProps = (state) => ({
   noteList: state.noteList,
+  notesCount: state.notesCount,
 });
 
 export default connect(mapStateToProps)(NoteList);

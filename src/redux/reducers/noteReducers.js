@@ -2,6 +2,7 @@ import { ADD_NOTE, DELETE_NOTE } from '../actions/noteActions';
 
 const initialState = {
   noteList: [],
+  notesCount: 0,
 };
 
 const noteReducer = (state = initialState, { type, payload }) => {
@@ -9,15 +10,15 @@ const noteReducer = (state = initialState, { type, payload }) => {
     return {
       ...state,
       noteList: [...state.noteList, payload],
+      notesCount: state.notesCount + 1,
     };
   }
 
   if (type === DELETE_NOTE) {
-    console.log(payload);
-
     return {
       ...state,
       noteList: state.noteList.filter((note) => note.id !== payload),
+      notesCount: state.notesCount - 1,
     };
   }
 
