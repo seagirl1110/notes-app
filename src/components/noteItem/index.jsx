@@ -2,13 +2,27 @@ import styles from './styles.module.css';
 import { connect } from 'react-redux';
 import { deleteNote } from '../../redux/actions/noteActions';
 
-function NoteItem({ id, title, content, deleteNoteFromList }) {
+function NoteItem({
+  id,
+  title,
+  content,
+  deleteNoteFromList,
+  setModalOpen,
+  setModalNoteId,
+}) {
+  function editNote() {
+    setModalOpen(true);
+    setModalNoteId(id);
+  }
+
   return (
     <div className={styles.note_item_container}>
       <h3>{title}</h3>
       <p>{content}</p>
       <div className={styles.actions_container}>
-        <button className={styles.note_btn}>Edit</button>
+        <button onClick={editNote} className={styles.note_btn}>
+          Edit
+        </button>
         <button
           onClick={() => deleteNoteFromList(id)}
           className={styles.note_btn}

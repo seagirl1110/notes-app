@@ -6,7 +6,7 @@ import NoteCount from './../noteCount';
 function Main() {
   return (
     <main className={styles.main_container}>
-      <NoteForm />
+      <NoteForm nameForm="Add" />
       <NoteCount />
       <NoteList />
     </main>

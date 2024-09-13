@@ -1,13 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './styles.module.css';
-import { addNote } from '../../redux/actions/noteActions';
+import { addNote, updateNote } from '../../redux/actions/noteActions';
 import { connect } from 'react-redux';
 
-function NoteForm({ addNoteToList }) {
+function NoteForm({
+  nameForm,
+  addNoteToList,
+  updateNoteInList,
+  setModalOpen,
+  modalNote,
+}) {
   const [note, setNote] = useState({
     title: '',
     content: '',
   });
+
+  useEffect(() => {
+    modalNote && setNote(modalNote);
+  }, [modalNote]);
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;
@@ -16,14 +26,19 @@ function NoteForm({ addNoteToList }) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    addNoteToList({
-      ...note,
-      id: new Date().getTime().toString(),
-    });
-    setNote({
-      title: '',
-      content: '',
-    });
+    if (nameForm === 'Add') {
+      addNoteToList({
+        ...note,
+        id: new Date().getTime().toString(),
+      });
+      setNote({
+        title: '',
+        content: '',
+      });
+    } else if (nameForm === 'Edit') {
+      setModalOpen(false);
+      updateNoteInList(note);
+    }
   };
 
   return (
@@ -43,13 +58,14 @@ function NoteForm({ addNoteToList }) {
         required
         placeholder="Content..."
       />
-      <button type="submit">Add note</button>
+      <button type="submit">{nameForm + ' note'}</button>
     </form>
   );
 }
 
 const mapDispatchToProps = (dispatch) => ({
   addNoteToList: (noteData) => dispatch(addNote(noteData)),
+  updateNoteInList: (newNoteData) => dispatch(updateNote(newNoteData)),
 });
 
 export default connect(null, mapDispatchToProps)(NoteForm);
